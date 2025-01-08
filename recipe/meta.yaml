@@ -6,21 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pytest-emoji-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/pytest-emoji-{{ version }}.tar.gz
   sha256: e1bd4790d87649c2d09c272c88bdfc4d37c1cc7c7a46583087d7c510944571e8
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.4
+    - python {{ python_min }}
+    - setuptools
   run:
     - pytest >=4.2.1
-    - python >=3.4
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -29,6 +30,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/hackebrot/pytest-emoji
